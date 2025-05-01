@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>面接ルーレット</title>
+  <style>
+    .question-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+      margin: 5% auto;
+      padding: 10% 5%;
+      border: 1px solid #ccc;
+      font-size: 2rem;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+    }
+    .container button {
+      width: 30%;
+      margin: auto;
+      padding: 3% 0;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="question-button" id="question">ここに質問が表示されるよ(ボタンで開始)</div>
+  <div class="container">
+    <button id="ok">いい感じ</button>
+    <button id="no">もう少し</button>
+  </div>
+</body>
+<script>
+  'use strict';
+  let question = document.getElementById('question');
+  let okButton = document.getElementById('ok');
+  let noButton = document.getElementById('no');
+  let tmp = null;
+
+  // 質問リスト
+  let questionList = [
+    '自己紹介',
+    '志望理由',
+    '学校で勉強していること',
+    '興味のある技術',
+    'キャリア志向',
+    '自己PR',
+    '学生時代に頑張ったこと',
+    '勉強している言語',
+    '一日の勉強時間',
+    '休日にしていること',
+    'ITに興味をもった理由',
+    '入社後にしたいこと',
+    '誰にも負けない強み',
+    '働きたい環境',
+    '制作物の説明',
+    '長所と短所',
+    '逆質問',
+    ];
+
+    // いい感じを押した時の処理
+    okButton.onclick = function() {
+      if(questionList.length < 1) {
+        question.textContent = '終了！';
+        setTimeout(finish, 700);
+      } else {
+        if (tmp !== null) {
+          questionList.splice(tmp, 1);
+          tmp = null;
+        }
+        let questionNum = Math.floor(Math.random() * questionList.length);
+        question.textContent = questionList[questionNum];
+        tmp = questionNum;
+        console.log(questionList);
+      }
+    }
+
+    // もう少しを押した時の処理
+    noButton.onclick = function() {
+      let questionNum = Math.floor(Math.random() * questionList.length);
+      question.textContent = questionList[questionNum];
+      tmp = questionNum;
+      console.log(questionList);
+    }
+
+    // 終了した時処理
+    function finish() {
+    okButton.onclick = function() {
+      location.reload();
+    };
+  }
+
+</script>
+</html>
